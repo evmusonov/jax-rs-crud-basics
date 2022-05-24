@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_16">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -74,5 +74,27 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:11.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:11.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:11.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.ext:jersey-spring5:3.0.0-M6" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet-core:3.0.0-M6" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2:3.0.0-M2" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-core:3.0.0-M2" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-runlevel:3.0.0-M2" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2:class-model:3.0.0-M2" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm:7.3.1" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-analysis:7.3.1" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-commons:7.3.1" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-tree:7.3.1" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm-util:7.3.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2:spring-bridge:3.0.0-M2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-core:5.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:5.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:5.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.1.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlet:11.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-security:11.0.9" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:4.0.1" level="project" />
   </component>
 </module>

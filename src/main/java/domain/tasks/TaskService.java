@@ -2,17 +2,19 @@ package domain.tasks;
 
 import dto.TaskCreateDTO;
 import dto.TaskUpdateDTO;
-import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import repository.TaskDao;
-import server.JettyServer;
 
 import java.util.Set;
 
+@Service
 public class TaskService {
     private final TaskDao dao;
 
-    public TaskService() {
-        dao = new TaskDao(JettyServer.sessionFactory);
+    @Autowired
+    public TaskService(TaskDao taskDao) {
+        this.dao = taskDao;
     }
 
     public Set<Task> getAll() {

@@ -3,6 +3,7 @@ package resources;
 import domain.tasks.TaskService;
 import dto.TaskCreateDTO;
 import dto.TaskUpdateDTO;
+import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -12,8 +13,9 @@ import jakarta.ws.rs.core.Response;
 public class TaskResource {
     private final TaskService taskService;
 
-    public TaskResource() {
-        taskService = new TaskService();
+    @Inject
+    public TaskResource(TaskService taskService) {
+        this.taskService = taskService;
     }
 
     @GET

@@ -1,8 +1,10 @@
 package server;
 
 import com.opentable.db.postgres.embedded.EmbeddedPostgres;
+import config.ApplicationConfig;
 import domain.tasks.Task;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.glassfish.jersey.jetty.JettyHttpContainerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
@@ -11,6 +13,7 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 import java.io.IOException;
 import java.net.URI;
@@ -21,13 +24,18 @@ public class JettyServer {
     public static SessionFactory sessionFactory = null;
 
     private static Server createServer(int port) {
+        AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
+        applicationContext.register(ApplicationConfig.class);
+        applicationContext.refresh(); // why do we need that?
+
         final ResourceConfig config = new ResourceConfig()
                 .packages("resources")
-                .property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
+                .property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true)
+                .property("contextConfig", applicationContext);
 
         // Start Jetty Server
         return JettyHttpContainerFactory.createServer(
-                        URI.create(String.format("http://localhost:%d/", port)), config);
+                URI.create(String.format("http://localhost:%d/", port)), config);
     }
 
     private static void createDatabase() {
