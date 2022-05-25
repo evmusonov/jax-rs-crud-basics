@@ -22,16 +22,11 @@ public class TaskService {
     }
 
     public Task findOne(Integer id) {
-        Task task = dao.findOne(id);
-        if (task == null) {
-            throw new RuntimeException("Запись не найдена");
-        }
-
-        return task;
+        return dao.findOne(id).orElseThrow(() -> new RuntimeException("Запись не найдена"));
     }
 
     public void create(TaskCreateDTO taskCreateDTO) {
-        if (dao.findByTitle(taskCreateDTO.title) != null) {
+        if (dao.findByTitle(taskCreateDTO.title).isPresent()) {
             throw new RuntimeException("Запись уже существует");
         }
 
@@ -43,10 +38,7 @@ public class TaskService {
     }
 
     public void update(Integer id, TaskUpdateDTO taskUpdateDTO) {
-        Task task = dao.findOne(id);
-        if (task == null) {
-            throw new RuntimeException("Запись не найдена");
-        }
+        Task task = dao.findOne(id).orElseThrow(() -> new RuntimeException("Запись не найдена"));
 
         if (taskUpdateDTO.title != null) {
             task.setTitle(taskUpdateDTO.title);
@@ -61,10 +53,7 @@ public class TaskService {
     }
 
     public void remove(Integer id) {
-        Task task = dao.findOne(id);
-        if (task == null) {
-            throw new RuntimeException("Запись не найдена");
-        }
+        Task task = dao.findOne(id).orElseThrow(() -> new RuntimeException("Запись не найдена"));
 
         dao.delete(task);
     }

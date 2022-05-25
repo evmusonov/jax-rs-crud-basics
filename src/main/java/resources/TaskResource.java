@@ -43,8 +43,12 @@ public class TaskResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@Valid TaskCreateDTO dto) {
-        taskService.create(dto);
-        return Response.noContent().status(201).build();
+        try {
+            taskService.create(dto);
+            return Response.noContent().status(201).build();
+        } catch (RuntimeException e) {
+            return Response.status(400).entity(e).build();
+        }
     }
 
     @PATCH
@@ -62,7 +66,11 @@ public class TaskResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") Integer id) {
-        taskService.remove(id);
-        return Response.noContent().status(200).build();
+        try {
+            taskService.remove(id);
+            return Response.noContent().status(200).build();
+        } catch (RuntimeException e) {
+            return Response.status(404).entity(e).build();
+        }
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -25,14 +26,17 @@ public class TaskDao {
         );
     }
 
-    public Task findOne(Integer id) {
-        return getSession().get(Task.class, id);
+    public Optional<Task> findOne(Integer id) {
+        Task task = getSession().get(Task.class, id);
+        return Optional.ofNullable(task);
     }
 
-    public Task findByTitle(String title) {
-        return getSession().createQuery("from Task where title = :title", Task.class)
+    public Optional<Task> findByTitle(String title) {
+        Task task = getSession().createQuery("from Task where title = :title", Task.class)
                 .setParameter("title", title)
-                .getSingleResult();
+                .getSingleResultOrNull();
+
+        return Optional.ofNullable(task);
     }
 
     public void create(Task task) {
