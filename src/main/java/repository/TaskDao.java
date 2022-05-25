@@ -44,7 +44,7 @@ public class TaskDao {
     }
 
     public void update(Task task) {
-        sessionFactory.inTransaction(session -> session.update(task));
+        sessionFactory.inTransaction(session -> session.merge(task));
     }
 
     public void delete(Task task) {
