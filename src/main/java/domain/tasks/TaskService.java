@@ -2,6 +2,8 @@ package domain.tasks;
 
 import dto.TaskCreateDTO;
 import dto.TaskUpdateDTO;
+import exceptions.InvalidArgumentsException;
+import exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.TaskDao;
@@ -22,12 +24,12 @@ public class TaskService {
     }
 
     public Task findOne(Integer id) {
-        return dao.findOne(id).orElseThrow(() -> new RuntimeException("Запись не найдена"));
+        return dao.findOne(id).orElseThrow(() -> new NotFoundException("Запись не найдена"));
     }
 
     public void create(TaskCreateDTO taskCreateDTO) {
         if (dao.findByTitle(taskCreateDTO.title).isPresent()) {
-            throw new RuntimeException("Запись уже существует");
+            throw new InvalidArgumentsException("Запись уже существует");
         }
 
         Task task = new Task();
@@ -38,7 +40,7 @@ public class TaskService {
     }
 
     public void update(Integer id, TaskUpdateDTO taskUpdateDTO) {
-        Task task = dao.findOne(id).orElseThrow(() -> new RuntimeException("Запись не найдена"));
+        Task task = dao.findOne(id).orElseThrow(() -> new NotFoundException("Запись не найдена"));
 
         if (taskUpdateDTO.title != null) {
             task.setTitle(taskUpdateDTO.title);
@@ -53,7 +55,7 @@ public class TaskService {
     }
 
     public void remove(Integer id) {
-        Task task = dao.findOne(id).orElseThrow(() -> new RuntimeException("Запись не найдена"));
+        Task task = dao.findOne(id).orElseThrow(() -> new NotFoundException("Запись не найдена"));
 
         dao.delete(task);
     }

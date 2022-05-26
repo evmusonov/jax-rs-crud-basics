@@ -3,6 +3,8 @@ package resources;
 import domain.tasks.TaskService;
 import dto.TaskCreateDTO;
 import dto.TaskUpdateDTO;
+import exceptions.InvalidArgumentsException;
+import exceptions.NotFoundException;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -33,7 +35,7 @@ public class TaskResource {
     public Response view(@PathParam("id") Integer id) {
         try {
             return Response.ok(taskService.findOne(id)).build();
-        } catch (RuntimeException e) {
+        } catch (NotFoundException e) {
             return Response.status(404).entity(e).build();
         }
     }
@@ -46,7 +48,7 @@ public class TaskResource {
         try {
             taskService.create(dto);
             return Response.noContent().status(201).build();
-        } catch (RuntimeException e) {
+        } catch (InvalidArgumentsException e) {
             return Response.status(400).entity(e).build();
         }
     }
@@ -57,8 +59,12 @@ public class TaskResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Integer id, @Valid TaskUpdateDTO dto) {
-        taskService.update(id, dto);
-        return Response.noContent().status(200).build();
+        try {
+            taskService.update(id, dto);
+            return Response.noContent().status(200).build();
+        } catch (NotFoundException e) {
+            return Response.status(400).entity(e).build();
+        }
     }
 
     @DELETE
@@ -69,7 +75,7 @@ public class TaskResource {
         try {
             taskService.remove(id);
             return Response.noContent().status(200).build();
-        } catch (RuntimeException e) {
+        } catch (NotFoundException e) {
             return Response.status(404).entity(e).build();
         }
     }
